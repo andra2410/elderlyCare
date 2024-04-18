@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}homepage{% endblock %}
 
 {% block content %}
 
@@ -61,6 +61,25 @@
         cursor: pointer;
     }
 
+    .register-message {
+        text-align: center;
+        margin-top: auto; /* Center vertically */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%; /* Occupy full height */
+    }
+
+    .register-button {
+        background-color: #007bff; /* Adjust as needed */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
 </style>
 
 <div class="row">
@@ -80,7 +99,12 @@
     </div>
   </div>
   <div class="column" style="background-color:#bbb;">Column</div>
-  <div class="column" style="background-color:#ccc;">Column</div>
+  <div class="column" style="background-color:#ccc;">
+    <div class="register-message">
+        <p>If you don't have an account, register here:</p>
+        <a href="/register" class="register-button">Register</a>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

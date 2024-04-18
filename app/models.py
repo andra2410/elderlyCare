@@ -5,45 +5,35 @@ from sqlalchemy_utils import ChoiceType
 db = SQLAlchemy()
 
 
-class Users(db.Model, UserMixin):
-    __tablename__ = 'users'
+class Caregivers(db.Model, UserMixin):
+    __tablename__ = 'caregivers'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String(60), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
-
-
-class Caregivers(db.Model):
-    referencesChoice = [('Yes', 'yes'),
-                        ('No', 'no'),
-                        ('N/A', 'n/a')]
-    availabilityChoice = [
-        ('Full-Time', 'FT'),
-        ('Part_Time', 'PT')
-    ]
-    __tablename__ = 'caregivers'
-    id = db.Column('caregiver_id', db.Integer, primary_key=True)
+    age = db.Column(db.Integer)
     experience = db.Column(db.String(100))
-    references = db.Column(ChoiceType(referencesChoice))
-    availability = db.Column(ChoiceType(availabilityChoice))
+    references = db.Column(ChoiceType([('Yes', 'yes'), ('No', 'no'), ('N/A', 'n/a')]))
+    availability = db.Column(ChoiceType([('Full-Time', 'FT'), ('Part-Time', 'PT')]))
     languages_spoken = db.Column(db.String(100))
     background_check = db.Column(db.Boolean)
     additional_notes = db.Column(db.Text)
 
 
-class CareSeekers(db.Model):
-    __tablename__ = 'careSeekers'
-    availabilityPreference = [
-        ('Full-Time', 'FT'),
-        ('Part_Time', 'PT')
-    ]
-    id = db.Column('careSeeker_id', db.Integer, primary_key=True)
+class CareSeekers(db.Model, UserMixin):
+    __tablename__ = 'care_seekers'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    location = db.Column(db.String(60), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=False)
     age = db.Column(db.Integer)
     type_of_care_needed = db.Column(db.String(100))
     monthly_budget = db.Column(db.Integer)
-    availability_needed = db.Column(ChoiceType(availabilityPreference))
+    availability_needed = db.Column(ChoiceType([('Full-Time', 'FT'), ('Part-Time', 'PT')]))
     preferred_qualifications = db.Column(db.String(100))
     medical_conditions = db.Column(db.String(100))
 

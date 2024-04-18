@@ -1,10 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center; color: white;">REGISTER</h1>
+
+<div style="text-align: center;">
+    <form action="/register" method="post">
+        <!-- Common fields for all users -->
+        <label for="username" style="color: white;">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email" style="color: white;">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password" style="color: white;">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="confirm_password" style="color: white;">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
+        <label for="location" style="color: white;">Location:</label><br>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="age" style="color: white;">Age:</label><br>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="phone_number" style="color: white;">Phone Number:</label><br>
+        <input type="tel" id="phone_number" name="phone_number" required><br><br>
+
+        <!-- Dropdown/select menu for selecting the role -->
+        <label for="role" style="color: white;">Role:</label><br>
+        <select id="role" name="role" required style="color: black;">
+            <option value="caregiver" style="color: black;">Caregiver</option>
+            <option value="care_seeker" style="color: black;">Care Seeker</option>
+        </select><br><br>
+
+        <!-- Fields specific to caregivers -->
+        <div id="caregiver-fields" style="display: none;">
+            <label for="experience" style="color: white;">Experience (Years):</label><br>
+            <input type="number" id="experience" name="experience" min="0"><br><br>
+
+            <label for="references" style="color: white;">References:</label><br>
+            <select id="references" name="references" style="color: black;">
+                <option value="Yes" style="color: black;">Yes</option>
+                <option value="No" style="color: black;">No</option>
+                <option value="N/A" style="color: black;">N/A</option>
+            </select><br><br>
+
+            <label for="availability" style="color: white;">Availability:</label><br>
+            <select id="availability" name="availability" style="color: black;">
+                <option value="Full-Time" style="color: black;">Full-Time</option>
+                <option value="Part-Time" style="color: black;">Part-Time</option>
+            </select><br><br>
+
+            <label for="languages_spoken" style="color: white;">Languages Spoken:</label><br>
+            <input type="text" id="languages_spoken" name="languages_spoken" style="color: black;"><br><br>
+
+            <label for="background_check" style="color: white;">Open for Background Check:</label><br>
+            <select id="background_check" name="background_check" style="color: black;">
+                <option value="Yes" style="color: black;">Yes</option>
+                <option value="No" style="color: black;">No</option>
+            </select><br><br>
+
+            <label for="additional_notes" style="color: white;">Additional Notes:</label><br>
+            <textarea id="additional_notes" name="additional_notes" style="color: black;"></textarea><br><br>
+        </div>
+
+        <!-- Fields specific to care seekers -->
+        <div id="care-seeker-fields" style="display: none;">
+            <label for="type_of_care_needed" style="color: white;">Type of Care Needed:</label><br>
+            <input type="text" id="type_of_care_needed" name="type_of_care_needed" style="color: black;"><br><br>
+
+            <label for="medical_conditions" style="color: white;">Medical Conditions:</label><br>
+            <input type="text" id="medical_conditions" name="medical_conditions" style="color: black;"><br><br>
+
+            <label for="preferred_qualifications" style="color: white;">Preferred Qualifications:</label><br>
+            <input type="text" id="preferred_qualifications" name="preferred_qualifications" style="color: black;"><br><br>
+
+            <label for="budget" style="color: white;">Budget:</label><br>
+            <input type="number" id="budget" name="budget" style="color: black;"><br><br>
+
+            <label for="availability_needed" style="color: white;">Availability Needed:</label><br>
+            <select id="availability_needed" name="availability_needed" style="color: black;">
+                <option value="Full-Time" style="color: black;">Full-Time</option>
+                <option value="Part-Time" style="color: black;">Part-Time</option>
+            </select><br><br>
+        </div>
+
+        <!-- Add more fields as needed -->
+
+        <input type="submit" value="Register">
+    </form>
+</div>
+
+<script>
+    // Show/hide caregiver or care seeker fields based on the selected role
+    document.getElementById('role').addEventListener('change', function () {
+        var role = this.value;
+        if (role === 'caregiver') {
+            document.getElementById('caregiver-fields').style.display = 'block';
+            document.getElementById('care-seeker-fields').style.display = 'none';
+        } else if (role === 'care_seeker') {
+            document.getElementById('care-seeker-fields').style.display = 'block';
+            document.getElementById('caregiver-fields').style.display = 'none';
+        } else {
+            document.getElementById('caregiver-fields').style.display = 'none';
+            document.getElementById('care-seeker-fields').style.display = 'none';
+        }
+    });
+</script>
+
+{% endblock %}
