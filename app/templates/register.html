@@ -7,6 +7,15 @@
 <h1 style="text-align: center; color: white;">REGISTER</h1>
 
 <div style="text-align: center;">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     <form action="/register" method="post">
         <!-- Common fields for all users -->
         <label for="username" style="color: white;">Username:</label><br>

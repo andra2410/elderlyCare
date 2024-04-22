@@ -11,15 +11,11 @@ def create_app():
     app_flask = Flask(__name__, template_folder=templates_path)
     app_flask.secret_key = '3'
     app_flask.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///elderlycare.db'
-
-    # DEFINE AND CONFIG SMTP SERVER
     app_flask.config['USER_EMAIL_SENDER_EMAIL'] = 'my_flask_app@me.com'
     app_flask.config['MAIL_SERVER'] = '127.0.0.1'
     app_flask.config['MAIL_PORT'] = 1025
     app_flask.config['MAIL_USE_TLS'] = False
     app_flask.config['MAIL_USE_SSL'] = False
-
-    # Register blueprints
     app_flask.register_blueprint(auth_blueprint)
     app_flask.register_blueprint(home_blueprint)
 
