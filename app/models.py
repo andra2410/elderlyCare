@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import UserMixin, UserManager
 from sqlalchemy_utils import ChoiceType
+from itsdangerous import URLSafeTimedSerializer
+from flask import current_app
 
 db = SQLAlchemy()
 

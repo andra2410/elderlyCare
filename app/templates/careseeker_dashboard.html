@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Care Seeker Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    /* CSS styles for the caregiver boxes */
+    .care-givers-container {
+        text-align: center; /* Center horizontally */
+        margin-top: 20px;
+    }
+
+    .caregivers-box {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 300px;
+        background-color: #f9f9f9;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .caregivers-box strong {
+        color: #333;
+    }
+</style>
+
+<h2>Caregivers</h2>
+<div class="care-givers-container">
+    {% for caregiver in caregivers %}
+    <div class="caregivers-box">
+        <strong>Username:</strong> {{ caregiver.username }}<br>
+        <strong>Email:</strong> {{ caregiver.email }}<br>
+        <strong>Phone Number:</strong> {{ caregiver.phone_number }}<br>
+        <strong>Age:</strong> {{ caregiver.age }}<br>
+        <strong>Location:</strong> {{ caregiver.location }}<br>
+        <strong>Experience:</strong> {{ caregiver.experience }}<br>
+        <strong>References:</strong> {{ caregiver.references }}<br>
+        <strong>Availability:</strong> {{ caregiver.availability }}<br>
+        <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }}<br>
+        <strong>Open for a background check:</strong> {{ caregiver.background_check }}<br>
+        <strong>Additional notes:</strong> {{ caregiver.additional_notes }}<br>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Set is_caregiver variable to true
+    var is_caregiver = true;
+</script>
+{% endblock %}

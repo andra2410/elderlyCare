@@ -1,4 +1,8 @@
-from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash,get_flashed_messages
+from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages
+from flask_user import login_required
+from flask_login import login_user, login_manager, current_user
+from flask_mail import Message
+
 from app import Caregivers
 from .models import db, CareSeekers
 
@@ -27,10 +31,9 @@ def login():
         elif care_seeker and care_seeker.password == password:
             return redirect(url_for('auth.careseeker_dashboard'))
         else:
-            error_message = "Invalid username or password."
-            return render_template('login.html', error_message=error_message)
-
-    return render_template('login.html')
+            flash('Invalid username or password', 'error')
+            # return redirect(url_for('auth.login'))
+    return redirect(url_for('home.homepage'))
 
 
 @auth_blueprint.route('/register', methods=["POST", "GET"])
@@ -43,11 +46,12 @@ def register():
         phone_number = request.form['phone_number']
         role = request.form['role']
 
-        if Caregivers.query.filter_by(username=username).first() or CareSeekers.query.filter_by(username=username).first():
+        if Caregivers.query.filter_by(username=username).first() or CareSeekers.query.filter_by(
+                username=username).first():
             flash('Username already exists. Please choose a different username', 'error')
             return redirect(url_for('auth.register'))
 
-        if Caregivers.query.filter_by(email = email).first() or CareSeekers.query.filter_by(email = email).first():
+        if Caregivers.query.filter_by(email=email).first() or CareSeekers.query.filter_by(email=email).first():
             flash('Email already in use. Try logging in instead.', 'error')
 
         if role == 'caregiver':
@@ -104,9 +108,11 @@ def register():
 
 @auth_blueprint.route('/caregiver_dashboard')
 def caregiver_dashboard():
-    return render_template('caregiver_dashboard.html')
+    care_seekers = CareSeekers.query.all()
+    return render_template('caregiver_dashboard.html', care_seekers=care_seekers)
 
 
 @auth_blueprint.route('/careseeker_dashboard')
 def careseeker_dashboard():
-    return render_template('careseeker_dashboard.html')
+    caregivers = Caregivers.query.all()
+    return render_template('careseeker_dashboard.html', caregivers=caregivers)

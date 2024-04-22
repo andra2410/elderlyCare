@@ -77,8 +77,17 @@
   <div class="column">
     <div class="login-form">
         <h2>Member Login</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <form action="/login" method="post">
-            <label for="username">Username or Email:</label>
+            <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>

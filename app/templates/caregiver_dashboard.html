@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Caregiver Dashboard{% endblock %}
+
+{% block content %}
+            <style>
+        /* CSS styles for the care seeker boxes */
+        .care-seekers-container {
+            text-align: center; /* Center horizontally */
+            margin-top: 20px;
+        }
+
+        .care-seeker-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 300px;
+            background-color: #f9f9f9;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .care-seeker-box strong {
+            color: #333;
+        }
+    </style>
+
+    <h2>Care Seekers</h2>
+    <div class="care-seekers-container">
+        {% for care_seeker in care_seekers %}
+            <div class="care-seeker-box">
+                <strong>Username:</strong> {{ care_seeker.username }}<br>
+                <strong>Email:</strong> {{ care_seeker.email }}<br>
+                <strong>Phone Number:</strong> {{care_seeker.phone_number}}<br>
+                <strong>Age:</strong> {{ care_seeker.age }}<br>
+                <strong>Type of care needed:</strong> {{ care_seeker.type_of_care_needed }}<br>
+                <strong>Monthly budget:</strong> {{ care_seeker.monthly_budget }}<br>
+                <strong>Availability needed:</strong> {{ care_seeker.availability_needed }}<br>
+                <strong>Preferred qualifications:</strong> {{ care_seeker.preferred_qualifications }}<br>
+                <strong>Medical conditions:</strong> {{ care_seeker.medical_conditions }}<br>
+
+
+                <!--age type_of_care_needed monthly_budget availability_needed preferred_qualifications medical_conditions  -->
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Set is_caregiver variable to true
+        var is_caregiver = true;
+    </script>
+{% endblock %}

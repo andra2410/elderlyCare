@@ -1,4 +1,7 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, current_app
+from flask_login import LoginManager
+from flask_mail import Mail
+
 from .models import db, usermanager, Caregivers, CareSeekers
 from .routes import home_blueprint, auth_blueprint
 from os import path
@@ -16,6 +19,7 @@ def create_app():
     app_flask.config['MAIL_PORT'] = 1025
     app_flask.config['MAIL_USE_TLS'] = False
     app_flask.config['MAIL_USE_SSL'] = False
+
     app_flask.register_blueprint(auth_blueprint)
     app_flask.register_blueprint(home_blueprint)
 
