@@ -1,8 +1,5 @@
-from flask import Flask, Blueprint, current_app
-from flask_login import LoginManager
-from flask_mail import Mail
-
-from .models import db, usermanager, Caregivers, CareSeekers
+from flask import Flask, Blueprint
+from .models import db, usermanager, Users
 from .routes import home_blueprint, auth_blueprint
 from os import path
 
@@ -25,6 +22,6 @@ def create_app():
 
     db.init_app(app_flask)
     with app_flask.app_context():
-        usermanager.init_app(app_flask, db, [Caregivers, CareSeekers])
+        usermanager.init_app(app_flask, db, Users)
         db.create_all()
     return app_flask

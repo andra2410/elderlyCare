@@ -3,7 +3,7 @@
 {% block title %}Caregiver Dashboard{% endblock %}
 
 {% block content %}
-            <style>
+    <style>
         /* CSS styles for the care seeker boxes */
         .care-seekers-container {
             text-align: center; /* Center horizontally */
@@ -32,24 +32,8 @@
             <div class="care-seeker-box">
                 <strong>Username:</strong> {{ care_seeker.username }}<br>
                 <strong>Email:</strong> {{ care_seeker.email }}<br>
-                <strong>Phone Number:</strong> {{care_seeker.phone_number}}<br>
-                <strong>Age:</strong> {{ care_seeker.age }}<br>
-                <strong>Type of care needed:</strong> {{ care_seeker.type_of_care_needed }}<br>
-                <strong>Monthly budget:</strong> {{ care_seeker.monthly_budget }}<br>
-                <strong>Availability needed:</strong> {{ care_seeker.availability_needed }}<br>
-                <strong>Preferred qualifications:</strong> {{ care_seeker.preferred_qualifications }}<br>
-                <strong>Medical conditions:</strong> {{ care_seeker.medical_conditions }}<br>
-
-
-                <!--age type_of_care_needed monthly_budget availability_needed preferred_qualifications medical_conditions  -->
+                <!-- Display other care seeker information as needed -->
             </div>
         {% endfor %}
     </div>
-{% endblock %}
-
-{% block scripts %}
-    <script>
-        // Set is_caregiver variable to true
-        var is_caregiver = true;
-    </script>
 {% endblock %}

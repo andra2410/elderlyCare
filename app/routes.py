@@ -1,11 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages
-from flask_user import login_required
-from flask_login import login_user, login_manager, current_user
-from flask_mail import Message
-from werkzeug.security import generate_password_hash
-
-from app import Caregivers
-from .models import db, CareSeekers
+from .models import db, Users
 
 auth_blueprint = Blueprint("auth", __name__, template_folder='templates')
 home_blueprint = Blueprint('home', __name__, template_folder='templates')
@@ -22,19 +16,22 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # Search for the user in both Caregivers and CareSeekers tables
-        caregiver = Caregivers.query.filter_by(username=username).first()
-        care_seeker = CareSeekers.query.filter_by(username=username).first()
+        user = Users.query.filter_by(username=username).first()
 
-        # Check if the user exists in either table
-        if caregiver and caregiver.password == password:
-            return redirect(url_for('auth.caregiver_dashboard'))
-        elif care_seeker and care_seeker.password == password:
-            return redirect(url_for('auth.careseeker_dashboard'))
+        if user:
+            if user.password == password:
+                if user.role == 'caregiver':
+                    return redirect(url_for('auth.caregiver_dashboard'))
+                elif user.role == 'care_seeker':
+                    return redirect(url_for('auth.careseeker_dashboard'))
+                else:
+                    flash('Invalid role.', 'error')
+            else:
+                flash('Invalid password.', 'error')
         else:
-            flash('Invalid username or password', 'error')
-            # return redirect(url_for('auth.login'))
-    return redirect(url_for('home.homepage'))
+            flash('User not found.', 'error')
+
+    return render_template('login.html')
 
 
 @auth_blueprint.route('/register', methods=["POST", "GET"])
@@ -43,65 +40,49 @@ def register():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        password_hash = generate_password_hash(password)
         location = request.form['location']
         phone_number = request.form['phone_number']
         role = request.form['role']
 
-        if Caregivers.query.filter_by(username=username).first() or CareSeekers.query.filter_by(
-                username=username).first():
-            flash('Username already exists. Please choose a different username', 'error')
+        if Users.query.filter_by(username=username).first() or Users.query.filter_by(email=email).first():
+            flash('Username or email already exists. Please choose a different one.', 'error')
             return redirect(url_for('auth.register'))
 
-        if Caregivers.query.filter_by(email=email).first() or CareSeekers.query.filter_by(email=email).first():
-            flash('Email already in use. Try logging in instead.', 'error')
-
         if role == 'caregiver':
-            experience = request.form['experience']
-            age = request.form['age']
-            references = request.form['references']
-            availability = request.form['availability']
-            languages_spoken = request.form['languages_spoken']
-            background_check = 'background_check' in request.form
-            additional_notes = request.form['additional_notes']
+            availability = request.form.get('availability')
+            background_check = request.form.get('background_check') == 'Yes'
+            availability_needed = None
 
-            caregiver = Caregivers(username=username,
-                                   age=age,
-                                   email=email,
-                                   password_hash=password_hash,
-                                   location=location,
-                                   phone_number=phone_number,
-                                   experience=experience,
-                                   references=references,
-                                   availability=availability,
-                                   languages_spoken=languages_spoken,
-                                   background_check=background_check,
-                                   additional_notes=additional_notes,
-                                   role='caregiver')
-            db.session.add(caregiver)
+        else:
+            availability_needed = request.form.get('availability_needed')
+            availability = None
+            background_check = None
 
-        elif role == 'care_seeker':
-            age = request.form['age']
-            type_of_care_needed = request.form['type_of_care_needed']
-            monthly_budget = request.form['budget']  # Corrected field name
-            availability_needed = request.form['availability_needed']
-            preferred_qualifications = request.form['preferred_qualifications']
-            medical_conditions = request.form['medical_conditions']
+        user = Users(
+            username=username,
+            email=email,
+            password=password,
+            location=location,
+            phone_number=phone_number,
+            role=role,
 
-            care_seeker = CareSeekers(username=username,
-                                      email=email,
-                                      password_hash=password_hash,
-                                      location=location,
-                                      phone_number=phone_number,
-                                      age=age,
-                                      type_of_care_needed=type_of_care_needed,
-                                      monthly_budget=monthly_budget,
-                                      availability_needed=availability_needed,
-                                      preferred_qualifications=preferred_qualifications,
-                                      medical_conditions=medical_conditions,
-                                      role='care-seeker')
-            db.session.add(care_seeker)
+            # Set caregiver-specific fields if role is caregiver
+            experience=request.form.get('experience'),
+            references=request.form.get('references'),
+            availability=availability,
+            languages_spoken=request.form.get('languages_spoken'),
+            background_check=background_check,
+            additional_notes=request.form.get('additional_notes'),
 
+            # Set care seeker-specific fields if role is care seeker
+            type_of_care_needed=request.form.get('type_of_care_needed'),
+            monthly_budget=request.form.get('budget'),
+            availability_needed=availability_needed,
+            preferred_qualifications=request.form.get('preferred_qualifications'),
+            medical_conditions=request.form.get('medical_conditions'),
+        )
+
+        db.session.add(user)
         db.session.commit()
         return redirect(url_for('home.homepage'))
     else:
@@ -109,22 +90,26 @@ def register():
 
 
 @auth_blueprint.route('/caregiver_dashboard')
-# @login_required
 def caregiver_dashboard():
-    # if current_user.role != 'caregiver':
-    #     flash('You are not authorized to access this page', 'error')
-    #     return redirect(url_for('home.homepage'))
-
-    care_seekers = CareSeekers.query.all()
+    care_seekers = Users.query.filter_by(role='care_seeker').all()
     return render_template('caregiver_dashboard.html', care_seekers=care_seekers)
 
 
 @auth_blueprint.route('/careseeker_dashboard')
-# @login_required
 def careseeker_dashboard():
-    # if current_user.role != 'care_seeker':
-    #     flash('You are not authorized to access this page', 'error')
-    #     return redirect(url_for('home.homepage'))
+    return render_template('careseeker_dashboard.html')
 
-    caregivers = Caregivers.query.all()
-    return render_template('careseeker_dashboard.html', caregivers=caregivers)
+
+# @auth_blueprint.route('/')
+# def index():
+#     new_user = Users(
+#         username='admin',
+#         password='admin',
+#         email='admin@admin.com',
+#         location='buc',
+#         phone_number='0000000000',
+#         role='admin',
+#         age=20)
+#     db.session.add(new_user)
+#     db.session.commit()
+#     flash('Invalid username or password', 'error')
