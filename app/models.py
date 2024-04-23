@@ -3,6 +3,7 @@ from flask_user import UserMixin, UserManager
 from sqlalchemy_utils import ChoiceType
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -12,7 +13,7 @@ class Caregivers(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String(60), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
     role = db.Column(db.String(30), nullable=False)
@@ -27,13 +28,26 @@ class Caregivers(db.Model, UserMixin):
     def is_active(self):
         return self.is_enabled
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def authenticate(username, password):
+        user = Caregivers.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            return user
+        return None
+
 
 class CareSeekers(db.Model, UserMixin):
     __tablename__ = 'care_seekers'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String(60), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
     role = db.Column(db.String(20), nullable=False)
@@ -46,6 +60,19 @@ class CareSeekers(db.Model, UserMixin):
 
     def is_active(self):
         return self.is_enabled
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def authenticate(username, password):
+        user = CareSeekers.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            return user
+        return None
 
 
 usermanager = UserManager(None, None, None)

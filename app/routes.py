@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect, url_for,
 from flask_user import login_required
 from flask_login import login_user, login_manager, current_user
 from flask_mail import Message
+from werkzeug.security import generate_password_hash
 
 from app import Caregivers
 from .models import db, CareSeekers
@@ -42,6 +43,7 @@ def register():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
+        password_hash = generate_password_hash(password)
         location = request.form['location']
         phone_number = request.form['phone_number']
         role = request.form['role']
@@ -66,7 +68,7 @@ def register():
             caregiver = Caregivers(username=username,
                                    age=age,
                                    email=email,
-                                   password=password,
+                                   password_hash=password_hash,
                                    location=location,
                                    phone_number=phone_number,
                                    experience=experience,
@@ -88,7 +90,7 @@ def register():
 
             care_seeker = CareSeekers(username=username,
                                       email=email,
-                                      password=password,
+                                      password_hash=password_hash,
                                       location=location,
                                       phone_number=phone_number,
                                       age=age,
@@ -107,12 +109,22 @@ def register():
 
 
 @auth_blueprint.route('/caregiver_dashboard')
+# @login_required
 def caregiver_dashboard():
+    # if current_user.role != 'caregiver':
+    #     flash('You are not authorized to access this page', 'error')
+    #     return redirect(url_for('home.homepage'))
+
     care_seekers = CareSeekers.query.all()
     return render_template('caregiver_dashboard.html', care_seekers=care_seekers)
 
 
 @auth_blueprint.route('/careseeker_dashboard')
+# @login_required
 def careseeker_dashboard():
+    # if current_user.role != 'care_seeker':
+    #     flash('You are not authorized to access this page', 'error')
+    #     return redirect(url_for('home.homepage'))
+
     caregivers = Caregivers.query.all()
     return render_template('careseeker_dashboard.html', caregivers=caregivers)
