@@ -61,12 +61,15 @@
         <h1>{% block header %}Elderly Care{% endblock %}</h1>
         <nav>
             <ul>
-                <li><a href="/homepage">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
-                {% if is_caregiver %}
-                <li><a href="/me">Me</a></li>
+                {% if 'role' in session and session['role'] == 'caregiver' %}
+                <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
                  {% endif %}
+                {% if 'role' in session and session['role'] == 'care_seeker' %}
+                <li><a href="/careseeker_profile/ {{ session['username'] }}">Me</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

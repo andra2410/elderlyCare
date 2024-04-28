@@ -25,19 +25,18 @@ def custom_login():
         username = request.form['username']
         password = request.form['password']
         print(db)
-        # Retrieve user from the database
         user = Users.query.filter_by(username=username).first()
 
+        login_user(user, remember=True)
+
         if user:
-            # User found in the database
-            # Verify password
             if check_password_hash(user.password, password):
                 # Password matches, log in the user
                 print('User authenticated:', user.username)
                 # print(current_user.id)
                 print('role', user.role)
                 session['role'] = user.role
-                login_user(user, remember=True)
+                session['username'] = username
                 print('Current user authenticated:', current_user.is_authenticated)
 
                 # Print session information
@@ -113,7 +112,7 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        login_user(user,remember=True)
+        login_user(user, remember=True)
         return redirect(url_for('home.homepage'))
     else:
         return render_template('register.html')
@@ -143,6 +142,55 @@ def careseeker_dashboard():
         flash('Access denied. Log in as caregiver', 'error')
         return redirect(url_for('home.homepage'))
 
+
+@home_blueprint.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@home_blueprint.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@auth_blueprint.route('/profile')
+def view_profile():
+    if 'role' in session:
+        role = session['role']
+        if role == 'caregiver':
+            user = Users.query.filter_by(role='caregiver').first()
+            return render_template('caregivers_profile.html', user=user)
+        elif role == 'care_seeker':
+            user = Users.query.filter_by(role='care_seeker').first()
+            return render_template('careseeker_profile.html', user=user)
+        else:
+            flash('invalid role', 'error')
+            return redirect(url_for('home.homepage'))
+    else:
+        flash('Login first', 'error')
+        return redirect(url_for('home.homepage'))
+
+
+@auth_blueprint.route('/caregivers_profile/<username>', methods=['GET'])
+def caregivers_profile(username):
+    if 'role' in session and session['role'] == 'caregiver':
+        # role = session['role']
+        user = Users.query.filter_by(username=username, role='caregiver').first()
+        return render_template('caregivers_profile.html', user=user)
+    else:
+        flash('Login first', 'error')
+        return redirect(url_for('home.homepage'))
+
+
+@auth_blueprint.route('/careseeker_profile')
+def careseeker_profile():
+    if 'role' in session and session['role'] == 'care_seeker':
+        # role = session['role']
+        user = Users.query.filter_by(role='care_seeker').first()
+        return render_template('careseeker_profile.html', user=user)
+    else:
+        flash('Login first', 'error')
+        return redirect(url_for('home.homepage'))
 
 # @auth_blueprint.route('/')
 # def index():
