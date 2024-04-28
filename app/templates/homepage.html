@@ -11,10 +11,10 @@
       float: left;
       width: 33.33%;
       padding: 20px;
-      height: 400px;   /*cat de mari sunt coloanele */
-      margin-top: 80px;    /*pozitionare in pagina */
-      opacity: 0.8;
+      height: 400px;   /* Adjust the height of columns */
+      margin-top: 80px;    /* Adjust the vertical positioning */
       border-radius: 10px;
+      overflow: hidden; /* Add overflow hidden to prevent content overflow */
     }
     .row:after {
         content: "";
@@ -26,12 +26,15 @@
             width: 100%;
         }
     }
-    .login-form {
+    .login-form,
+    .register-message {
         background-color: #aaa; /* Adjust as needed */
         padding: 20px;
         border-radius: 10px;
+        height: 100%; /* Occupy full height */
     }
-    .login-form label {
+    .login-form label,
+    .register-message p {
         display: block;
         margin-bottom: 10px;
     }
@@ -43,26 +46,9 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-    .login-form input[type="submit"] {
-        background-color: #333; /* Adjust as needed */
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .register-message {
-        text-align: center;
-        margin-top: auto; /* Center vertically */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%; /* Occupy full height */
-    }
-
+    .login-form input[type="submit"],
     .register-button {
-        background-color: #007bff; /* Adjust as needed */
+        background-color: #333; /* Adjust as needed */
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -70,7 +56,6 @@
         cursor: pointer;
         text-decoration: none;
     }
-
 </style>
 
 <div class="row">
@@ -96,13 +81,22 @@
         <a href="/forgot-password">Forgot Password?</a>
     </div>
   </div>
-  <div class="column" style="background-color:#bbb;">Column</div>
-    <div class="column" style="background-color:#ccc;">
-    <div class="register-message">
-        <p>If you don't have an account, register here:</p>
-        <a href="/register" class="register-button">Register</a>
-    </div>
+  <div class="column" style="color: azure; background-color:azure;">
+       <div class="login-form"> <!-- Apply login form styles -->
+           <h2>Welcome to Our Elderly Care Platform</h2>
+           <p>Our platform connects caregivers with careseekers, providing a convenient and reliable way to find the support and assistance you need.</p>
+           <p>Whether you're a caregiver looking for opportunities to provide care and companionship, or a careseeker in need of assistance with daily tasks or specialized care, our platform is here to help you connect with the right match.</p>
+           <p>Sign up today to create your profile and start browsing caregivers or careseekers in your area. Our user-friendly interface makes it easy to find the perfect match for your needs.</p>
+       </div>
   </div>
+   <div class="column">
+    <div class="login-form">
+        <div class="register-message" style="margin-top: 20px;">
+            <p style="text-align: center;">If you don't have an account, register here:</p>
+            <a href="/register" class="register-button" style="display: block; margin: 0 auto; text-align: center;">Register</a>
+        </div>
+    </div>
+</div>
 </div>
 
 {% endblock %}

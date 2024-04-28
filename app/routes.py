@@ -27,7 +27,9 @@ def custom_login():
         print(db)
         user = Users.query.filter_by(username=username).first()
 
-        login_user(user, remember=True)
+        #login_user(user, remember=True)
+        session['role'] = 'NULL'
+        session['username'] = 'NULL'
 
         if user:
             if check_password_hash(user.password, password):
@@ -172,7 +174,7 @@ def caregivers_profile(username):
             if new_username != user.username and Users.query.filter_by(username=new_username).first():
                 flash('Username already exists. Please choose a different one.', 'error')
                 return render_template('caregivers_profile.html', user=user)
-            if new_username:
+            else:
                 user.username = new_username
             if new_email:
                 user.email = new_email
@@ -203,12 +205,50 @@ def caregivers_profile(username):
         return redirect(url_for('home.homepage'))
 
 
-@auth_blueprint.route('/careseeker_profile')
-def careseeker_profile():
+@auth_blueprint.route('/careseeker_profile/<username>', methods=['GET', 'POST'])
+def careseeker_profile(username):
     if 'role' in session and session['role'] == 'care_seeker':
-        # role = session['role']
-        user = Users.query.filter_by(role='care_seeker').first()
-        return render_template('careseeker_profile.html', user=user)
+        print(session['role'])
+        print(session['username'])
+        user = Users.query.filter_by(username=username, role='care_seeker').first()
+        if request.method == 'POST':
+            new_username = request.form.get('new_username')
+            new_email = request.form.get('new_email')
+            new_location = request.form.get('new_location')
+            new_age = request.form.get('new_age')
+            new_type_of_care_needed = request.form.get('new_type_of_care_needed')
+            new_medical_conditions = request.form.get('new_medical_conditions')
+            new_preferred_qualifications = request.form.get('new_preferred_qualifications')
+            new_monthly_budget = request.form.get('new_monthly_budget')
+            new_availability_needed = request.form.get('new_availability_needed')
+
+            if new_username != user.username and Users.query.filter_by(username=new_username).first():
+                flash('Username already exists. Please choose a different one.', 'error')
+                return render_template('careseeker_profile.html', user=user)
+            else:
+                user.username = new_username
+            if new_email:
+                user.email = new_email
+            if new_location:
+                user.location = new_location
+            if new_age:
+                user.age = new_age
+            if new_type_of_care_needed:
+                user.type_of_care_needed = new_type_of_care_needed
+            if new_availability_needed:
+                user.availability_needed = new_availability_needed
+            if new_monthly_budget:
+                user.monthly_budget = new_monthly_budget
+            if new_preferred_qualifications:
+                user.preferred_qualifications = new_preferred_qualifications
+            if new_medical_conditions:
+                user.medical_conditions = new_medical_conditions
+
+            db.session.commit()
+            flash('Profile updated successfully', 'success')
+            return redirect(url_for('auth.careseeker_profile', username=username))
+        else:
+            return render_template('careseeker_profile.html', user=user)
     else:
         flash('Login first', 'error')
         return redirect(url_for('home.homepage'))

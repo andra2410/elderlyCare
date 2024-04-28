@@ -3,8 +3,75 @@
 {% block title %}Care Seeker Profile{% endblock %}
 
 {% block content %}
+    <style>
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
 
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <!-- Add other fields as needed -->
+        .profile-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .profile-box input[type="text"],
+        .profile-box select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-box button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+
+    <div class="profile-container">
+        <div class="profile-box">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flashed-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="post">
+                <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
+                <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
+                <p>Phone number:<br> {{ user.phone_number }}</p>
+                <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
+                <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
+                <p>Type of care needed:<br> <input type="text" name="new_type_of_care_needed" value="{{ user.type_of_care_needed }}"></p>
+                <p>Availability needed:<br>
+                    <select name="new_availability_needed">
+                        <option value="Full-Time" {% if user.availability_needed == 'Full-Time' %}selected{% endif %}>Full-Time</option>
+                        <option value="Part-Time" {% if user.availability_needed == 'Part-Time' %}selected{% endif %}>Part-Time</option>
+                    </select>
+                </p>
+                <p>Medical conditions:<br> <input type="text" name="new_medical_conditions" value="{{ user.medical_conditions }}"></p>
+                <p>Preferred Qualifications:<br> <input type="text" name="new_preferred_qualifications" value="{{ user.preferred_qualifications }}"></p>
+                <p>Budget:<br> <input type="text" name="new_monthly_budget" value="{{ user.monthly_budget }}"></p>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

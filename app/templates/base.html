@@ -15,6 +15,9 @@
             text-align: center;
         }
         /* CSS styles for the navigation menu */
+        nav {
+            padding-left: 60px;
+        }
         nav ul {
             list-style-type: none;
             margin: 0;
@@ -60,18 +63,19 @@
     <header>
         <h1>{% block header %}Elderly Care{% endblock %}</h1>
         <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-                {% if 'role' in session and session['role'] == 'caregiver' %}
-                <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
-                 {% endif %}
-                {% if 'role' in session and session['role'] == 'care_seeker' %}
-                <li><a href="/careseeker_profile/ {{ session['username'] }}">Me</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+    <<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+    {% if session.get('role') != 'NULL' and session.get('username') != 'NULL' %}
+    {% if session['role'] == 'caregiver' %}
+        <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
+    {% elif session['role'] == 'care_seeker' %}
+        <li><a href="/careseeker_profile/{{ session['username'] }}">Me</a></li>
+    {% endif %}
+{% endif %}
+</ul>
+</nav>
     </header>
     <div class="main-content">
         <section class="sidebar">
@@ -81,5 +85,8 @@
             {% block content %}{% endblock %}
         </section>
     </div>
+<footer>
+        Session: {{ session }}
+    </footer>
 </body>
 </html>
