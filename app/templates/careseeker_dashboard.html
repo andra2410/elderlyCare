@@ -19,10 +19,37 @@
             background-color: #f9f9f9;
             display: inline-block;
             vertical-align: top;
+            position: relative; /* Add position relative to enable absolute positioning */
         }
 
         .caregiver-box strong {
             color: #333;
+        }
+
+        .see-more-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .additional-info-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            display: none; /* Initially hidden */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000; /* Ensure the box appears on top of other content */
         }
     </style>
 
@@ -30,25 +57,35 @@
     <div class="caregivers-container">
         {% for caregiver in caregivers %}
             <div class="caregiver-box">
-                <strong>Username:</strong> {{ caregiver.username }}<br>
-                <strong>Email:</strong> {{ caregiver.email }}<br>
-                <strong>Experience:</strong> {{ caregiver.experience }}<br>
-                <strong>References:</strong> {{ caregiver.references }}<br>
-                <strong>Availability:</strong> {{ caregiver.availability }}<br>
-                <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }}<br>
-                <strong>Background check:</strong> {{ caregiver.background_check }}<br>
-                <strong>Additional notes:</strong> {{ caregiver.additional_notes }}<br>
-                <!--experience=request.form.get('experience'),
-            references=request.form.get('references'),
-            availability=availability,
-            languages_spoken=request.form.get('languages_spoken'),
-            background_check=background_check,
-            additional_notes=request.form.get('additional_notes'), -->
+                <strong>Username:</strong> {{ caregiver.username }} <br>
+                <strong>Experience:</strong> {{ caregiver.experience }} <br>
+                <strong>References:</strong> {{ caregiver.references }} <br>
+                <strong>Availability:</strong> {{ caregiver.availability }} <br>
+                <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }} <br>
+                <strong>Background check:</strong> {{ caregiver.background_check }} <br>
+                <strong>Additional notes:</strong> {{ caregiver.additional_notes }} <br>
+                <br>
+                <br>
+                <button class="see-more-button">See more</button>
+                <div class="additional-info-box">
+                    <p><strong>Phone number:</strong> {{ caregiver.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ caregiver.email }}</p>
+                </div>
             </div>
         {% endfor %}
     </div>
 
-<form action="{{ url_for('auth.logout') }}" method="POST">
+    <form action="{{ url_for('auth.logout') }}" method="POST">
         <button type="submit" class="logout-button">Logout</button>
     </form>
+
+    <script>
+        document.querySelectorAll('.see-more-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Toggle the visibility of the additional info box relative to the clicked button
+                const additionalInfoBox = button.nextElementSibling;
+                additionalInfoBox.style.display = additionalInfoBox.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
 {% endblock %}

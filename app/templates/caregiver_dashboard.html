@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Caregiver Dashboard{% endblock %}
+{% block title %}Caregivers Dashboard{% endblock %}
 
 {% block content %}
     <style>
-        /* CSS styles for the care seeker boxes */
-        .care-seekers-container {
+        /* CSS styles for the careseeker boxes */
+        .care_seekers-container {
             text-align: center; /* Center horizontally */
             margin-top: 20px;
         }
 
-        .care-seeker-box {
+        .caregiver-box {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
@@ -19,35 +19,71 @@
             background-color: #f9f9f9;
             display: inline-block;
             vertical-align: top;
+            position: relative; /* Add position relative to enable absolute positioning */
         }
 
-        .care-seeker-box strong {
+        .caregiver-box strong {
             color: #333;
+        }
+
+        .see-more-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .additional-info-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            display: none; /* Initially hidden */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000; /* Ensure the box appears on top of other content */
         }
     </style>
 
-    <h2>Care Seekers</h2>
-    <div class="care-seekers-container">
+    <h2>Careseekers</h2>
+    <div class="care_seekers-container">
         {% for care_seeker in care_seekers %}
-            <div class="care-seeker-box">
-                <strong>Username:</strong> {{ care_seeker.username }}<br>
-                <strong>Email:</strong> {{ care_seeker.email }}<br>
+            <div class="caregiver-box">
+                <strong>Username:</strong> {{ care_seeker.username }} <br>
                 <strong>Type of care needed:</strong> {{ care_seeker.type_of_care_needed }} <br>
-                <strong>Monthly budget:</strong> {{ care_seeker.monthly_budget }}<br>
-                <strong>Availability needed:</strong> {{ care_seeker.email }}<br>
-                <strong>Preffered qualifications:</strong> {{ care_seeker.preferred_qualifications }}<br>
-                <strong>Medical Conditions:</strong> {{ care_seeker.medical_conditions }}<br>
-                <!-- type_of_care_needed=request.form.get('type_of_care_needed'),
-            monthly_budget=request.form.get('budget'),
-            availability_needed=availability_needed,
-            preferred_qualifications=request.form.get('preferred_qualifications'),
-            medical_conditions=request.form.get('medical_conditions'),,-->
+                <strong>Monthly budget:</strong> {{ care_seeker.monthly_budget}} <br>
+                <strong>Availability needed:</strong> {{ care_seeker.availability_needed}} <br>
+                <strong>Preferred qualifications:</strong> {{ care_seeker.preferred_qualifications}} <br>
+                <strong>Medical conditions:</strong> {{ care_seeker.medical_conditions }} <br>
+                <br>
+                <br>
+                <button class="see-more-button">See more</button>
+                <div class="additional-info-box">
+                    <p><strong>Phone number:</strong> {{ care_seeker.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ care_seeker.email }}</p>
+                </div>
             </div>
         {% endfor %}
     </div>
 
-<form action="{{ url_for('auth.logout') }}" method="POST">
+    <form action="{{ url_for('auth.logout') }}" method="POST">
         <button type="submit" class="logout-button">Logout</button>
     </form>
 
+    <script>
+        document.querySelectorAll('.see-more-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const additionalInfoBox = button.nextElementSibling;
+                additionalInfoBox.style.display = additionalInfoBox.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
 {% endblock %}
