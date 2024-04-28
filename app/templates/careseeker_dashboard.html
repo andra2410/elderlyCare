@@ -32,7 +32,18 @@
             <div class="caregiver-box">
                 <strong>Username:</strong> {{ caregiver.username }}<br>
                 <strong>Email:</strong> {{ caregiver.email }}<br>
-                <!-- Display other caregiver information as needed -->
+                <strong>Experience:</strong> {{ caregiver.experience }}<br>
+                <strong>References:</strong> {{ caregiver.references }}<br>
+                <strong>Availability:</strong> {{ caregiver.availability }}<br>
+                <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }}<br>
+                <strong>Background check:</strong> {{ caregiver.background_check }}<br>
+                <strong>Additional notes:</strong> {{ caregiver.additional_notes }}<br>
+                <!--experience=request.form.get('experience'),
+            references=request.form.get('references'),
+            availability=availability,
+            languages_spoken=request.form.get('languages_spoken'),
+            background_check=background_check,
+            additional_notes=request.form.get('additional_notes'), -->
             </div>
         {% endfor %}
     </div>

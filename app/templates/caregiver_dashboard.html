@@ -32,6 +32,16 @@
             <div class="care-seeker-box">
                 <strong>Username:</strong> {{ care_seeker.username }}<br>
                 <strong>Email:</strong> {{ care_seeker.email }}<br>
+                <strong>Type of care needed:</strong> {{ care_seeker.type_of_care_needed }} <br>
+                <strong>Monthly budget:</strong> {{ care_seeker.monthly_budget }}<br>
+                <strong>Availability needed:</strong> {{ care_seeker.email }}<br>
+                <strong>Preffered qualifications:</strong> {{ care_seeker.preferred_qualifications }}<br>
+                <strong>Medical Conditions:</strong> {{ care_seeker.medical_conditions }}<br>
+                <!-- type_of_care_needed=request.form.get('type_of_care_needed'),
+            monthly_budget=request.form.get('budget'),
+            availability_needed=availability_needed,
+            preferred_qualifications=request.form.get('preferred_qualifications'),
+            medical_conditions=request.form.get('medical_conditions'),,-->
             </div>
         {% endfor %}
     </div>
