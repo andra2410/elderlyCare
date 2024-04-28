@@ -59,8 +59,10 @@
             <div class="caregiver-box">
                 <strong>Username:</strong> {{ caregiver.username }} <br>
                 <strong>Experience:</strong> {{ caregiver.experience }} <br>
+                {% if caregiver.references != 'N/A' %}
                 <strong>References:</strong> {{ caregiver.references }} <br>
-                <strong>Availability:</strong> {{ caregiver.availability }} <br>
+                {% endif %}
+                <strong>Availability:</strong> {% if caregiver.availability == 'Full-Time' %}Full-Time{% elif caregiver.availability == 'Part-Time' %}Part-Time{% else %}{{ caregiver.availability }}{% endif %}<br>
                 <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }} <br>
                 <strong>Background check:</strong> {{ caregiver.background_check }} <br>
                 <strong>Additional notes:</strong> {{ caregiver.additional_notes }} <br>
