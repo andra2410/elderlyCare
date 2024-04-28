@@ -196,6 +196,8 @@ def caregivers_profile(username):
                 user.additional_notes = new_additional_notes
 
             db.session.commit()
+            session['username'] = new_username
+            username = new_username
             flash('Profile updated successfully', 'success')
             return redirect(url_for('auth.caregivers_profile', username=username))
         else:
@@ -245,6 +247,8 @@ def careseeker_profile(username):
                 user.medical_conditions = new_medical_conditions
 
             db.session.commit()
+            session['username'] = new_username
+            username = new_username
             flash('Profile updated successfully', 'success')
             return redirect(url_for('auth.careseeker_profile', username=username))
         else:
