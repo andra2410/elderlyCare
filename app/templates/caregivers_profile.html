@@ -3,8 +3,77 @@
 {% block title %}Caregiver Profile{% endblock %}
 
 {% block content %}
-    <h1>Caregiver Profile</h1>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <!-- Add other fields as needed -->
+    <style>
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
+
+        .profile-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .profile-box input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-box button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+
+
+    <div class="profile-container">
+        <div class="profile-box">
+            <form method="post">
+                <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
+                <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
+                <p>Phone number:<br> {{ user.phone_number }}</p>
+                <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
+                <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
+                <p>Experience:<br> <input type="text" name="new_experience" value="{{ user.experience }}"></p>
+                 <p>Availability:<br>
+                <select name="new_availability">
+                    <option value="Full-Time" {% if user.availability == 'Full-Time' %}selected{% endif %}>Full-Time</option>
+                    <option value="Part-Time" {% if user.availability == 'Part-Time' %}selected{% endif %}>Part-Time</option>
+                </select>
+            </p>
+                <p>Languages Spoken:<br> <input type="text" name="new_languages_spoken" value="{{ user.languages_spoken }}"></p>
+                <p>Background Check:<br>
+                <select name="new_background_check">
+                    <option value="True" {% if user.background_check == True %}selected{% endif %}>Yes</option>
+                    <option value="False" {% if user.background_check == False %}selected{% endif %}>No</option>
+                </select>
+            </p>
+                <p>References:<br>
+                <select name="new_references">
+                    <option value="Yes" {% if user.references == 'Yes' %}selected{% endif %}>Yes</option>
+                    <option value="No" {% if user.references == 'No' %}selected{% endif %}>No</option>
+                    <option value="N/A" {% if user.references == 'N/A' %}selected{% endif %}>N/A</option>
+                </select>
+            </p>
+                <p>Additional notes:<br> <input type="text" name="new_additional_notes" value="{{ user.additional_notes }}"></p>
+
+
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

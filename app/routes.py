@@ -153,30 +153,48 @@ def contact():
     return render_template('contact.html')
 
 
-@auth_blueprint.route('/profile')
-def view_profile():
-    if 'role' in session:
-        role = session['role']
-        if role == 'caregiver':
-            user = Users.query.filter_by(role='caregiver').first()
-            return render_template('caregivers_profile.html', user=user)
-        elif role == 'care_seeker':
-            user = Users.query.filter_by(role='care_seeker').first()
-            return render_template('careseeker_profile.html', user=user)
-        else:
-            flash('invalid role', 'error')
-            return redirect(url_for('home.homepage'))
-    else:
-        flash('Login first', 'error')
-        return redirect(url_for('home.homepage'))
-
-
-@auth_blueprint.route('/caregivers_profile/<username>', methods=['GET'])
+@auth_blueprint.route('/caregivers_profile/<username>', methods=['GET', 'POST'])
 def caregivers_profile(username):
     if 'role' in session and session['role'] == 'caregiver':
-        # role = session['role']
         user = Users.query.filter_by(username=username, role='caregiver').first()
-        return render_template('caregivers_profile.html', user=user)
+        if request.method == 'POST':
+            new_username = request.form.get('new_username')
+            new_email = request.form.get('new_email')
+            new_location = request.form.get('new_location')
+            new_age = request.form.get('new_age')
+            new_experience = request.form.get('new_experience')
+            new_references_text = request.form.get('new_references')
+            new_availability = request.form.get('new_availability')
+            new_languages_spoken = request.form.get('new_languages_spoken')
+            new_background_check = request.form.get('new_background_check')
+            new_additional_notes = request.form.get('new_additional_notes')
+
+            if new_username:
+                user.username = new_username
+            if new_email:
+                user.email = new_email
+            if new_location:
+                user.location = new_location
+            if new_age:
+                user.age = new_age
+            if new_experience:
+                user.experience = new_experience
+            if new_availability:
+                user.availability = new_availability
+            if new_languages_spoken:
+                user.languages_spoken = new_languages_spoken
+            if new_background_check:
+                user.background_check = new_background_check == 'True'  # Convert to boolean
+            if new_references_text:
+                user.references = new_references_text
+            if new_additional_notes:
+                user.additional_notes = new_additional_notes
+
+            db.session.commit()
+            flash('Profile updated successfully', 'success')
+            return redirect(url_for('auth.caregivers_profile', username=username))
+        else:
+            return render_template('caregivers_profile.html', user=user)
     else:
         flash('Login first', 'error')
         return redirect(url_for('home.homepage'))
@@ -191,6 +209,7 @@ def careseeker_profile():
     else:
         flash('Login first', 'error')
         return redirect(url_for('home.homepage'))
+
 
 # @auth_blueprint.route('/')
 # def index():
