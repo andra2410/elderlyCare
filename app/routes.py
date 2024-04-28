@@ -265,6 +265,24 @@ def logout():
     flash('Session ended. You have successfully logged out.', 'success')
     return redirect(url_for('home.homepage'))
 
+
+@auth_blueprint.route('/delete_profile', methods=['POST'])
+def delete_profile():
+    if request.method == 'POST':
+        # Get the current user from the session
+        username = session.get('username')
+
+        # Delete the user from the database
+        user = Users.query.filter_by(username=username).first()
+        db.session.delete(user)
+        db.session.commit()
+
+        session['role'] = None
+        session['username'] = None
+
+        flash('Account deleted successfully', 'success')
+        return redirect(url_for('home.homepage'))
+
 # @auth_blueprint.route('/')
 # def index():
 #     new_user = Users(

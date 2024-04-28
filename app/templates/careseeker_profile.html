@@ -54,24 +54,34 @@
             {% endwith %}
 
             <form method="post">
-                <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
-                <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
-                <p>Phone number:<br> {{ user.phone_number }}</p>
-                <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
-                <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
-                <p>Type of care needed:<br> <input type="text" name="new_type_of_care_needed" value="{{ user.type_of_care_needed }}"></p>
-                <p>Availability needed:<br>
-                    <select name="new_availability_needed">
-                        <option value="Full-Time" {% if user.availability_needed == 'Full-Time' %}selected{% endif %}>Full-Time</option>
-                        <option value="Part-Time" {% if user.availability_needed == 'Part-Time' %}selected{% endif %}>Part-Time</option>
-                    </select>
-                </p>
-                <p>Medical conditions:<br> <input type="text" name="new_medical_conditions" value="{{ user.medical_conditions }}"></p>
-                <p>Preferred Qualifications:<br> <input type="text" name="new_preferred_qualifications" value="{{ user.preferred_qualifications }}"></p>
-                <p>Budget:<br> <input type="text" name="new_monthly_budget" value="{{ user.monthly_budget }}"></p>
-                <button type="submit">Update Profile</button>
-            </form>
+    <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
+    <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
+    <p>Phone number:<br> {{ user.phone_number }}</p>
+    <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
+    <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
+    <p>Type of care needed:<br> <input type="text" name="new_type_of_care_needed" value="{{ user.type_of_care_needed }}"></p>
+    <p>Availability needed:<br>
+        <select name="new_availability_needed">
+            <option value="Full-Time" {% if user.availability_needed == 'Full-Time' %}selected{% endif %}>Full-Time</option>
+            <option value="Part-Time" {% if user.availability_needed == 'Part-Time' %}selected{% endif %}>Part-Time</option>
+        </select>
+    </p>
+    <p>Medical conditions:<br> <input type="text" name="new_medical_conditions" value="{{ user.medical_conditions }}"></p>
+    <p>Preferred Qualifications:<br> <input type="text" name="new_preferred_qualifications" value="{{ user.preferred_qualifications }}"></p>
+    <p>Budget:<br> <input type="text" name="new_monthly_budget" value="{{ user.monthly_budget }}"></p>
+    <button type="submit">Update Profile</button>
+</form>
+
+<form action="{{ url_for('auth.delete_profile') }}" method="post">
+    <button type="submit" class="delete-button" onclick="confirmDelete()">Delete Profile</button>
+</form>
         </div>
     </div>
-
+ <script>
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+                window.location.href = "{{ url_for('auth.delete_profile') }}";
+            }
+        }
+    </script>
 {% endblock %}
