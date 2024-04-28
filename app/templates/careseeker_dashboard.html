@@ -36,4 +36,8 @@
             </div>
         {% endfor %}
     </div>
+
+<form action="{{ url_for('auth.logout') }}" method="POST">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
 {% endblock %}

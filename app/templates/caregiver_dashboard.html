@@ -32,8 +32,12 @@
             <div class="care-seeker-box">
                 <strong>Username:</strong> {{ care_seeker.username }}<br>
                 <strong>Email:</strong> {{ care_seeker.email }}<br>
-                <!-- Display other care seeker information as needed -->
             </div>
         {% endfor %}
     </div>
+
+<form action="{{ url_for('auth.logout') }}" method="POST">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+
 {% endblock %}

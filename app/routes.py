@@ -27,7 +27,7 @@ def custom_login():
         print(db)
         user = Users.query.filter_by(username=username).first()
 
-        #login_user(user, remember=True)
+        # login_user(user, remember=True)
         session['role'] = 'NULL'
         session['username'] = 'NULL'
 
@@ -257,6 +257,13 @@ def careseeker_profile(username):
         flash('Login first', 'error')
         return redirect(url_for('home.homepage'))
 
+
+@auth_blueprint.route('/logout', methods=['POST'])
+def logout():
+    session['role'] = None
+    session['username'] = None
+    flash('Session ended. You have successfully logged out.', 'success')
+    return redirect(url_for('home.homepage'))
 
 # @auth_blueprint.route('/')
 # def index():
