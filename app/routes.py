@@ -169,6 +169,9 @@ def caregivers_profile(username):
             new_background_check = request.form.get('new_background_check')
             new_additional_notes = request.form.get('new_additional_notes')
 
+            if new_username != user.username and Users.query.filter_by(username=new_username).first():
+                flash('Username already exists. Please choose a different one.', 'error')
+                return render_template('caregivers_profile.html', user=user)
             if new_username:
                 user.username = new_username
             if new_email:
