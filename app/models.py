@@ -1,6 +1,8 @@
+# from flask_login import login_manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import UserMixin, UserManager
 from sqlalchemy_utils import ChoiceType
+
 
 db = SQLAlchemy()
 
@@ -30,6 +32,19 @@ class Users(db.Model, UserMixin):
     availability_needed = db.Column(ChoiceType([('Full-Time', 'FT'), ('Part-Time', 'PT')]))
     preferred_qualifications = db.Column(db.String(100))
     medical_conditions = db.Column(db.String(100))
+
+    def get_id(self):
+        return str(self.id)
+
+    def is_active(self):
+        return True
+
+    def is_authenticated(self):
+        return self.is_authenticated()
+
+    def is_anonymous(self):
+        return False
+
 
 
 usermanager = UserManager(None, None, None)
