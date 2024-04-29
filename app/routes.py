@@ -210,9 +210,9 @@ def caregivers_profile(username):
             confirm_password = request.form.get('confirm_password')
             hashed_password = generate_password_hash(new_password)
             confirmed_hashed_password = generate_password_hash(confirm_password)
-            print(new_password)
-            print(confirm_password)
-            print(hashed_password)
+            # print(new_password)
+            # print(confirm_password)
+            # print(hashed_password)
 
             if new_username != user.username and Users.query.filter_by(username=new_username).first():
                 flash('Username already exists. Please choose a different one.', 'error')
@@ -303,7 +303,7 @@ def careseeker_profile(username):
             if new_password:
                 if new_password != confirm_password:
                     flash('Passwords do not match.', 'error')
-                    return render_template('caregivers_profile.html', user=user)
+                    return render_template('careseeker_profile.html', user=user)
                 else:
                     print(f"New Password: {new_password}")
                     print(f"Hashed Password: {hashed_password}")

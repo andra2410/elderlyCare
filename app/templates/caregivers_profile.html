@@ -57,10 +57,12 @@
 
     <div class="profile-container">
         <div class="profile-box">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" onsubmit="return validatePassword()">
                 <p>Upload Picture:<br> <input type="file" name="picture"></p>
                 <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
                 <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
+                <p>New password: <br> <input type="password" name="new_password" id="new_password" value=""></p>
+                <p>Confirm password: <br> <input type="password" name="confirm_password" id="confirm_password"></p>
                 <p>Phone number:<br>  <input type="text" name="new_phone_number" value = "{{ user.phone_number}}"></p>
                 <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
                 <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
@@ -100,6 +102,17 @@
         </div>
     </div>
  <script>
+        function validatePassword() {
+            var newPassword = document.getElementById("new_password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+
         function confirmDelete() {
             if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
                 window.location.href = "{{ url_for('auth.delete_profile') }}";
