@@ -32,6 +32,7 @@ class Users(db.Model, UserMixin):
     availability_needed = db.Column(ChoiceType([('Full-Time', 'FT'), ('Part-Time', 'PT')]))
     preferred_qualifications = db.Column(db.String(100))
     medical_conditions = db.Column(db.String(100))
+    picture = db.Column(db.String(300))
 
     def get_id(self):
         return str(self.id)

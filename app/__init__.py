@@ -28,6 +28,8 @@ def create_app():
     app_flask.config['LOGIN_MESSAGE'] = 'Please log in to access this page'
     app_flask.config['TESTING'] = True
     app_flask.config['SESSION_COOKIE_SECURE'] = True
+    app_flask.config['UPLOAD_FOLDER'] = 'uploads'
+    # app_flask.static_folder = 'uploads'
 
     app_flask.register_blueprint(auth_blueprint)
     app_flask.register_blueprint(home_blueprint)

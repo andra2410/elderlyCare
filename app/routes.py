@@ -1,7 +1,12 @@
-from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages, session
+import os
+from os import path
+
+from flask import Flask, Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages, session, \
+    current_app, send_from_directory
 from flask_login import current_user, login_required, login_user, LoginManager
 from flask_user.forms import LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
 from .models import db, Users
 
@@ -160,6 +165,16 @@ def caregivers_profile(username):
     if 'role' in session and session['role'] == 'caregiver':
         user = Users.query.filter_by(username=username, role='caregiver').first()
         if request.method == 'POST':
+            picture = request.files['picture']
+            if picture:
+                filename = secure_filename(picture.filename)
+                upload_folder = path.join(current_app.instance_path, 'uploads')
+                picture_path = os.path.join(upload_folder, filename)
+                print(picture_path)
+                os.makedirs(os.path.dirname(picture_path), exist_ok=True)
+                picture.save(picture_path)
+                user.picture = filename
+
             new_username = request.form.get('new_username')
             new_email = request.form.get('new_email')
             new_location = request.form.get('new_location')
@@ -214,6 +229,16 @@ def careseeker_profile(username):
         print(session['username'])
         user = Users.query.filter_by(username=username, role='care_seeker').first()
         if request.method == 'POST':
+            picture = request.files['picture']
+            if picture:
+                filename = secure_filename(picture.filename)
+                upload_folder = path.join(current_app.instance_path, 'uploads')
+                picture_path = os.path.join(upload_folder, filename)
+                print(picture_path)
+                os.makedirs(os.path.dirname(picture_path), exist_ok=True)
+                picture.save(picture_path)
+                user.picture = filename
+
             new_username = request.form.get('new_username')
             new_email = request.form.get('new_email')
             new_location = request.form.get('new_location')
@@ -282,6 +307,11 @@ def delete_profile():
 
         flash('Account deleted successfully', 'success')
         return redirect(url_for('home.homepage'))
+
+
+@home_blueprint.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(current_app.instance_path, 'uploads'), filename)
 
 # @auth_blueprint.route('/')
 # def index():

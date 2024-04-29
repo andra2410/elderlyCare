@@ -64,6 +64,9 @@
 
         {% for care_seeker in care_seekers %}
             <div class="care_seekers-box">
+                {% if care_seeker.picture %}
+    <img src="{{ url_for('home.uploaded_file', filename=care_seeker.picture.split('/')[-1]) }}" alt="Caregiver Picture" style="width: 200px; height: 200px; border-radius: 50%; margin-left:55px">
+{% endif %}
                 <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ care_seeker.username }} <br>
                 <strong>Type of care needed:</strong> <br> {{ care_seeker.type_of_care_needed }} <br>
                 <strong>Monthly budget:</strong> <br> {{ care_seeker.monthly_budget }} <br>

@@ -63,6 +63,9 @@
     </div>
         {% for caregiver in caregivers %}
             <div class="caregiver-box">
+                {% if caregiver.picture %}
+    <img src="{{ url_for('home.uploaded_file', filename=caregiver.picture.split('/')[-1]) }}" alt="Caregiver Picture" style="width: 200px; height: 200px; border-radius: 50%; margin-left:55px">
+{% endif %}
                 <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ caregiver.username }} <br>
                 <strong>Experience:</strong><br> {{ caregiver.experience }} <br>
                 {% if caregiver.references != 'N/A' %}
@@ -79,6 +82,7 @@
                     <p><strong>Phone number:</strong> {{ caregiver.phone_number }}</p>
                     <p><strong>Email:</strong> {{ caregiver.email }}</p>
                 </div>
+            </span>
             </div>
         {% endfor %}
     </div>

@@ -56,7 +56,8 @@
 
     <div class="profile-container">
         <div class="profile-box">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
+                <p>Upload Picture:<br> <input type="file" name="picture"></p>
                 <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
                 <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
                 <p>Phone number:<br> {{ user.phone_number }}</p>
@@ -102,5 +103,4 @@
             }
         }
     </script>
-
 {% endblock %}
