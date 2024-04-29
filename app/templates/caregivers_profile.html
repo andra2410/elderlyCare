@@ -37,6 +37,7 @@
             float: right;
         }
 
+
     </style>
 
 <div class="profile-container">
@@ -60,7 +61,7 @@
                 <p>Upload Picture:<br> <input type="file" name="picture"></p>
                 <p>Username:<br> <input type="text" name="new_username" value="{{ user.username }}"></p>
                 <p>Email:<br> <input type="text" name="new_email" value="{{ user.email }}"></p>
-                <p>Phone number:<br> {{ user.phone_number }}</p>
+                <p>Phone number:<br>  <input type="text" name="new_phone_number" value = "{{ user.phone_number}}"></p>
                 <p>Location:<br> <input type="text" name="new_location" value="{{ user.location }}"></p>
                 <p>Age:<br> <input type="text" name="new_age" value="{{ user.age }}"></p>
                 <p>Experience:<br> <input type="text" name="new_experience" value="{{ user.experience }}"></p>

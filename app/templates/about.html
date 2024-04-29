@@ -1,11 +1,52 @@
 {% extends 'base.html' %}
+{% block title %}ABOUT Elderly Care{% endblock %}
+{% block content %}
+    <style>
+        .container {
+            position: relative;
+            margin-top: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgb(50, 57, 25, 0.7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+        h1 {
+            color: #385c25;
+            text-align: center;
+        }
 
-</body>
-</html>
+        h2 {
+            color: #fdffa5;
+        }
+
+        p {
+            font-size: large;
+            color: #777;
+        }
+    </style>
+    <div class="container">
+        <h3 style="font-size: 1.9em; color: #fdffa5">Welcome to Elderly Care!</h3>
+        <p style="color: #fff">At Elderly Care, we understand the importance of providing compassionate care for our elderly loved ones. Our platform was created with a simple yet powerful vision: to bridge the gap between caregivers and careseekers, fostering meaningful connections that enrich lives.</p>
+
+        <h2>Our Mission</h2>
+        <p style="color: #fff">We are dedicated to facilitating connections that empower both caregivers and careseekers. Whether you're a caregiver with a heart full of compassion or a careseeker in need of support and assistance, Elderly Care is here for you. Our mission is to make the process of finding reliable care or offering your invaluable services as seamless and stress-free as possible.</p>
+
+        <h2>Who We Are</h2>
+        <p style="color: #fff">Elderly Care is more than just a platform; we're a community. We're comprised of caregivers who are passionate about making a difference in the lives of the elderly, and careseekers who deserve nothing but the best care and companionship. Together, we're redefining the standards of elderly care, one connection at a time.</p>
+
+        <h2>What Sets Us Apart</h2>
+        <p style="color: #fff">At Elderly Care, we prioritize trust, safety, and reliability above all else. Our rigorous screening process ensures that all caregivers on our platform are qualified, compassionate, and dedicated to providing exceptional care. For careseekers, we offer peace of mind knowing that you're connecting with trustworthy individuals who are committed to your well-being.</p>
+
+        <h2>Join Our Community</h2>
+        <p style="color: #fff">Whether you're seeking care for yourself or a loved one, or you're a caregiver looking to make a meaningful difference, we invite you to join our growing community. Together, we can create a world where every elderly individual receives the quality care and support they deserve.</p>
+
+        <h3 style="font-size: 1.7em; color: #fdffa5">Thank you for choosing Elderly Care as your trusted partner in elderly care.</h3>
+    </div>
+{% endblock %}

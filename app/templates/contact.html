@@ -1,10 +1,56 @@
 {% extends 'base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+    <style>
+        .container {
+            position: relative;
+            margin-top: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgb(50, 57, 25, 0.7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-</body>
-</html>
+        h1 {
+            color: #385c25;
+            text-align: center;
+        }
+
+        h2 {
+            color: #fdffa5;
+        }
+
+        p {
+            font-size: large;
+            color: #777;
+        }
+    </style>
+    <div class="container">
+        <h3 style="font-size: 1.9em; color: #fdffa5">Contact Us</h3>
+        <p style="color: #fff">We're here to answer any questions you may have about our services. Feel free to reach out to us using the contact information below:</p>
+
+        <h2>Email</h2>
+        <p style="color: #fff">elderlycare@abc.com</p>
+
+        <h2>Phone Number</h2>
+        <p style="color: #fff">0700/111/222</p>
+
+        <h2>Office Hours</h2>
+        <p style="color: #fff">10:00 - 20:00</p>
+
+        <h2>Connect With Us. Stay updated on our latest news, events, and tips by following us on social media:</h2>
+        <p style="color: #fff">
+            FACEBOOK: Elderly Care <br>
+            TWITTER: - <br>
+            INSTAGRAM: elderly_care
+        </p>
+
+        <h3 style="font-size: 1.7em; color: #fdffa5">Thank you for choosing Elderly Care as your trusted partner in elderly care.</h3>
+    </div>
+{% endblock %}

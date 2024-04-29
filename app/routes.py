@@ -196,6 +196,7 @@ def caregivers_profile(username):
                 user.picture = filename
 
             new_username = request.form.get('new_username')
+            new_phone_number = request.form.get('new_phone_number')
             new_email = request.form.get('new_email')
             new_location = request.form.get('new_location')
             new_age = request.form.get('new_age')
@@ -229,6 +230,8 @@ def caregivers_profile(username):
                 user.references = new_references_text
             if new_additional_notes:
                 user.additional_notes = new_additional_notes
+            if new_phone_number:
+                user.phone_number = new_phone_number
 
             db.session.commit()
             session['username'] = new_username
@@ -260,6 +263,7 @@ def careseeker_profile(username):
                 user.picture = filename
 
             new_username = request.form.get('new_username')
+            new_phone_number = request.form.get('new_phone_number')
             new_email = request.form.get('new_email')
             new_location = request.form.get('new_location')
             new_age = request.form.get('new_age')
@@ -290,6 +294,8 @@ def careseeker_profile(username):
                 user.preferred_qualifications = new_preferred_qualifications
             if new_medical_conditions:
                 user.medical_conditions = new_medical_conditions
+            if new_phone_number:
+                user.phone_number = new_phone_number
 
             db.session.commit()
             session['username'] = new_username
