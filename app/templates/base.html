@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Website{% endblock %}</title>
     <style>
-         body {
-        background-image: url("static/bck.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-color: #9cdbe0;
-}
+        body {
+            background-image: url("static/bck.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #9cdbe0;
+        }
 
         header {
             padding: 20px;
             text-align: center;
         }
+
         /* CSS styles for the navigation menu */
         nav {
             padding-left: 60px;
         }
+
         nav ul {
             list-style-type: none;
             margin: 0;
@@ -27,16 +29,19 @@
             padding: 0;
             text-align: -webkit-center;
         }
+
         nav ul li {
             display: inline;
             margin-right: 55px;
         }
+
         nav ul li a {
             color: #f4ffc7;
             text-decoration: underline;
             font-size: 25px;
             font-weight: 800;
         }
+
         /* CSS styles for the footer */
         footer {
             background-color: #333;
@@ -47,49 +52,52 @@
             bottom: 0;
             width: 100%;
         }
+
         h1 {
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  font-size: 60px;
-  padding: 20px 30px;
-  text-align: center;
-  text-transform: uppercase;
-  text-rendering: optimizeLegibility;
-    color: #385c25;
-    letter-spacing: .1em;
-    text-shadow:
-      -1px -1px 1px #111,
-      2px 2px 1px #363636;
-}
+            font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+            font-size: 60px;
+            padding: 20px 30px;
+            text-align: center;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            color: #385c25;
+            letter-spacing: .1em;
+            text-shadow: -1px -1px 1px #111, 2px 2px 1px #363636;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>{% block header %}Elderly Care{% endblock %}</h1>
-        <nav>
-    <<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/contact">Contact</a></li>
-    {% if session.get('role') != 'NULL' and session.get('username') != 'NULL' %}
-    {% if session['role'] == 'caregiver' %}
-        <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
-    {% elif session['role'] == 'care_seeker' %}
-        <li><a href="/careseeker_profile/{{ session['username'] }}">Me</a></li>
-    {% endif %}
-{% endif %}
-</ul>
-</nav>
-    </header>
-    <div class="main-content">
-        <section class="sidebar">
-            {% block sidebar %}{% endblock %}
-        </section>
-        <section class="content">
-            {% block content %}{% endblock %}
-        </section>
-    </div>
-  <footer>
-        Session: {{ session }}
-    </footer>
+<header>
+    <h1>{% block header %}Elderly Care{% endblock %}</h1>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            {% if session.get('role') != 'NULL' and session.get('username') != 'NULL' %}
+                {% if session['role'] == 'caregiver' %}
+                    <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
+                    <li><a href="/caregiver_dashboard">My dashboard</a></li>
+                    <li><a href="/caregiver_data">My data</a></li>
+                {% elif session['role'] == 'care_seeker' %}
+                    <li><a href="/careseeker_profile/{{ session['username'] }}">Me</a></li>
+                    <li><a href="/careseeker_dashboard">My dashboard</a></li>
+                    <li><a href="/careseeker_data">My data</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+<div class="main-content">
+    <section class="sidebar">
+        {% block sidebar %}{% endblock %}
+    </section>
+    <section class="content">
+        {% block content %}{% endblock %}
+    </section>
+</div>
+<footer>
+    Session: {{ session }}
+</footer>
 </body>
 </html>

@@ -139,6 +139,12 @@ def caregiver_dashboard():
         return redirect(url_for('home.homepage'))
 
 
+@auth_blueprint.route('/caregiver_data')
+def caregiver_data():
+    if 'role' in session and session['role'] == 'caregiver':
+        return render_template('caregiver_data.html')
+
+
 @auth_blueprint.route('/careseeker_dashboard')
 # @login_required
 def careseeker_dashboard():
@@ -148,6 +154,12 @@ def careseeker_dashboard():
     else:
         flash('Access denied. Log in as caregiver', 'error')
         return redirect(url_for('home.homepage'))
+
+
+@auth_blueprint.route('/careseeker_data')
+def careseeker_data():
+    if 'role' in session and session['role'] == 'caregiver':
+        return render_template('careseeker_data.html')
 
 
 @home_blueprint.route('/about')
