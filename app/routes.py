@@ -206,6 +206,13 @@ def caregivers_profile(username):
             new_languages_spoken = request.form.get('new_languages_spoken')
             new_background_check = request.form.get('new_background_check')
             new_additional_notes = request.form.get('new_additional_notes')
+            new_password = request.form.get('new_password')
+            confirm_password = request.form.get('confirm_password')
+            hashed_password = generate_password_hash(new_password)
+            confirmed_hashed_password = generate_password_hash(confirm_password)
+            print(new_password)
+            print(confirm_password)
+            print(hashed_password)
 
             if new_username != user.username and Users.query.filter_by(username=new_username).first():
                 flash('Username already exists. Please choose a different one.', 'error')
@@ -214,6 +221,17 @@ def caregivers_profile(username):
                 user.username = new_username
             if new_email:
                 user.email = new_email
+
+            if new_password:
+                if new_password != confirm_password:
+                    flash('Passwords do not match.', 'error')
+                    return render_template('caregivers_profile.html', user=user)
+                else:
+                    print(f"New Password: {new_password}")
+                    print(f"Hashed Password: {hashed_password}")
+                    print(f"Confirmed Hashed Password: {confirmed_hashed_password}")
+                    user.password = hashed_password
+
             if new_location:
                 user.location = new_location
             if new_age:
@@ -272,12 +290,25 @@ def careseeker_profile(username):
             new_preferred_qualifications = request.form.get('new_preferred_qualifications')
             new_monthly_budget = request.form.get('new_monthly_budget')
             new_availability_needed = request.form.get('new_availability_needed')
+            new_password = request.form.get('new_password')
+            confirm_password = request.form.get('confirm_password')
+            hashed_password = generate_password_hash(new_password)
 
             if new_username != user.username and Users.query.filter_by(username=new_username).first():
                 flash('Username already exists. Please choose a different one.', 'error')
                 return render_template('careseeker_profile.html', user=user)
             else:
                 user.username = new_username
+
+            if new_password:
+                if new_password != confirm_password:
+                    flash('Passwords do not match.', 'error')
+                    return render_template('caregivers_profile.html', user=user)
+                else:
+                    print(f"New Password: {new_password}")
+                    print(f"Hashed Password: {hashed_password}")
+                    user.password = hashed_password
+
             if new_email:
                 user.email = new_email
             if new_location:
