@@ -70,7 +70,7 @@
                 <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ care_seeker.username }} <br>
                 <strong>Type of care needed:</strong> <br> {{ care_seeker.type_of_care_needed }} <br>
                 <strong>Monthly budget:</strong> <br> {{ care_seeker.monthly_budget }} <br>
-                <strong>Availability needed:</strong> <br> {{ care_seeker.availability_needed }}<br>
+                <strong>Availability needed:</strong> <br>{% if care_seeker.availability_needed == 'Full-Time' %}Full-Time{% elif care_seeker.availability_needed == 'Part-Time' %}Part-Time{% else %}{{ care_seeker.availability_needed }}{% endif %}<br>
                 <strong>Preferred Qualifications:</strong> <br>{{ care_seeker.preferred_qualifications }} <br>
                 <strong>Medical conditions:</strong> <br> {{ care_seeker.medical_conditions }} <br>
                 <br>
