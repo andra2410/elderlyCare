@@ -21,7 +21,7 @@
     </style>
 
     <div class="data-box">
-        <h2>This is your profile, {{session['username']}}</h2>
+        <h2 style="color: cornsilk;">{{session['username']}}</h2>
                 {% if user.picture %}
                 <img src="{{ url_for('home.uploaded_file', filename=user.picture.split('/')[-1]) }}" alt="user Picture" style="width: 210px; height: 200px; border-radius: 50%; margin-left:48px">
              {% endif %}
