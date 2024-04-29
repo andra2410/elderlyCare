@@ -142,7 +142,11 @@ def caregiver_dashboard():
 @auth_blueprint.route('/caregiver_data')
 def caregiver_data():
     if 'role' in session and session['role'] == 'caregiver':
-        return render_template('caregiver_data.html')
+        if 'username' in session:
+            username = session['username']
+            user = Users.query.filter_by(username=username).first()
+            if user:
+                return render_template('caregiver_data.html', user=user)
 
 
 @auth_blueprint.route('/careseeker_dashboard')
