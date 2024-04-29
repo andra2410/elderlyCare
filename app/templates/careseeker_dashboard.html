@@ -64,7 +64,7 @@
         {% for caregiver in caregivers %}
             <div class="caregiver-box">
                 {% if caregiver.picture %}
-    <img src="{{ url_for('home.uploaded_file', filename=caregiver.picture.split('/')[-1]) }}" alt="Caregiver Picture" style="width: 200px; height: 200px; border-radius: 50%; margin-left:55px">
+    <img src="{{ url_for('home.uploaded_file', filename=caregiver.picture.split('/')[-1]) }}" alt="Caregiver Picture" style="width: 210px; height: 200px; border-radius: 50%; margin-left:55px">
 {% endif %}
                 <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ caregiver.username }} <br>
                 <strong>Experience:</strong><br> {{ caregiver.experience }} <br>
