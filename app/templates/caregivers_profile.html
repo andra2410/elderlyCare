@@ -36,13 +36,14 @@
             cursor: pointer;
             float: right;
         }
+
     </style>
 
 <div class="profile-container">
         <div class="profile-box">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                    <div class="flashed-messages">
+                    <div class="flashed-messages" style="color: red;">
                         {% for category, message in messages %}
                             <div class="alert alert-{{ category }}">
                                 {{ message }}
@@ -87,9 +88,11 @@
 
                 <button type="submit">Update Profile</button>
             </form>
+
             <form action="{{ url_for('auth.delete_profile') }}" method="post">
-    <button type="submit" class="delete-button" onclick="confirmDelete()" style="margin-top: 10px; color: red;">Delete Profile</button>
-</form>
+            <button type="submit" class="delete-button" onclick="confirmDelete()" style="margin-top: 10px; color: red;">Delete Profile</button>
+            </form>
+
         </div>
     </div>
  <script>

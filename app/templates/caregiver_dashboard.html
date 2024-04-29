@@ -5,12 +5,12 @@
 {% block content %}
     <style>
         /* CSS styles for the caregiver boxes */
-        .caregivers-container {
+        .care_seekers-container {
             text-align: center; /* Center horizontally */
             margin-top: 20px;
         }
 
-        .caregiver-box {
+        .care_seekers-box {
             border: 1px solid rgb(50, 57, 25, 0.7);
             border-radius: 5px;
             padding: 10px;
@@ -25,7 +25,7 @@
             text-align: center;
         }
 
-        .caregiver-box strong {
+        .care_seekers-box strong {
             color: cornsilk;
             font-size: large;
         }
@@ -36,7 +36,7 @@
             left: 50%;
             transform: translateX(-50%);
             padding: 5px 10px;
-            background-color: #ca72b4;
+            background-color:#ca72b4;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -44,14 +44,14 @@
         }
 
         .additional-info-box {
-            position: absolute;
+           position: absolute;
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            background-color: rgb(50, 57, 25, 1);
             display: none; /* Initially hidden */
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 40px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000; /* Ensure the box appears on top of other content */
         }
@@ -62,20 +62,19 @@
         <p style="font-size: 18px; color: blanchedalmond;">Thank you for choosing our platform to offer your caregiving services. Here you can find care seekers looking for assistance. Take your time exploring and connecting with care seekers that match your qualifications.</p>
     </div>
 
-    <div class="caregivers-container">
         {% for care_seeker in care_seekers %}
-            <div class="caregiver-box">
-                <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ care_seeker.username }} </span><br>
-                <strong>Type of Care Needed:</strong> {{ care_seeker.type_of_care_needed }} <br>
-                <strong>Monthly Budget:</strong> {{ care_seeker.monthly_budget}} <br>
-                <strong>Availability Needed:</strong> {{ care_seeker.availability_needed}} <br>
-                <strong>Preferred Qualifications:</strong> {{ care_seeker.preferred_qualifications}} <br>
-                <strong>Medical Conditions:</strong> {{ care_seeker.medical_conditions }} <br>
+            <div class="care_seekers-box">
+                <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ care_seeker.username }} <br>
+                <strong>Type of care needed:</strong> <br> {{ care_seeker.type_of_care_needed }} <br>
+                <strong>Monthly budget:</strong> <br> {{ care_seeker.monthly_budget }} <br>
+                <strong>Availability needed:</strong> <br> {{ care_seeker.availability_needed }}<br>
+                <strong>Preferred Qualifications:</strong> <br>{{ care_seeker.preferred_qualifications }} <br>
+                <strong>Medical conditions:</strong> <br> {{ care_seeker.medical_conditions }} <br>
                 <br>
                 <br>
                 <button class="see-more-button">See more</button>
                 <div class="additional-info-box">
-                    <p><strong>Phone Number:</strong> {{ care_seeker.phone_number }}</p>
+                    <p><strong>Phone number:</strong> {{ care_seeker.phone_number }}</p>
                     <p><strong>Email:</strong> {{ care_seeker.email }}</p>
                 </div>
             </div>

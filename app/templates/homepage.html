@@ -64,7 +64,7 @@
         <h2 style="color: beige;">Member Login</h2>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" style="color:red;">
                     {% for message in messages %}
                         {{ message }}
                     {% endfor %}

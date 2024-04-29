@@ -63,15 +63,15 @@
     </div>
         {% for caregiver in caregivers %}
             <div class="caregiver-box">
-                <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;">{{ caregiver.username }} <br>
-                <strong>Experience:</strong> {{ caregiver.experience }} <br>
+                <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ caregiver.username }} <br>
+                <strong>Experience:</strong><br> {{ caregiver.experience }} <br>
                 {% if caregiver.references != 'N/A' %}
-                <strong>References:</strong> {{ caregiver.references }} <br>
+                <strong>References:</strong> <br>{{ caregiver.references }} <br>
                 {% endif %}
-                <strong>Availability:</strong> {% if caregiver.availability == 'Full-Time' %}Full-Time{% elif caregiver.availability == 'Part-Time' %}Part-Time{% else %}{{ caregiver.availability }}{% endif %}<br>
-                <strong>Languages spoken:</strong> {{ caregiver.languages_spoken }} <br>
-                <strong>Background check:</strong> {{ caregiver.background_check }} <br>
-                <strong>Additional notes:</strong> {{ caregiver.additional_notes }} <br>
+                <strong>Availability:</strong> <br>{% if caregiver.availability == 'Full-Time' %}Full-Time{% elif caregiver.availability == 'Part-Time' %}Part-Time{% else %}{{ caregiver.availability }}{% endif %}<br>
+                <strong>Languages spoken:</strong> <br>{{ caregiver.languages_spoken }} <br>
+                <strong>Background check:</strong> <br> {{ caregiver.background_check }} <br>
+                <strong>Additional notes:</strong> <br>{{ caregiver.additional_notes }} <br>
                 <br>
                 <br>
                 <button class="see-more-button">See more</button>

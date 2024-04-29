@@ -33,6 +33,7 @@ def create_app():
     app_flask.register_blueprint(home_blueprint)
 
     db.init_app(app_flask)
+
     # login_manager.login_view = 'auth.custom_login'
     # login_manager.login_message = 'Please log in to access this page'
 
