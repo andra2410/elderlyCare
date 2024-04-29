@@ -72,6 +72,8 @@
     <p>Budget:<br> <input type="text" name="new_monthly_budget" value="{{ user.monthly_budget }}"></p>
     <button type="submit">Update Profile</button>
 </form>
+            <br>
+            <br>
 
 <form action="{{ url_for('auth.delete_profile') }}" method="post">
     <button type="submit" class="delete-button" onclick="confirmDelete()" style="margin-top: 10px; color: red;">Delete Profile</button>

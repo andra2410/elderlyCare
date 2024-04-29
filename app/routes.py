@@ -162,8 +162,12 @@ def careseeker_dashboard():
 
 @auth_blueprint.route('/careseeker_data')
 def careseeker_data():
-    if 'role' in session and session['role'] == 'caregiver':
-        return render_template('careseeker_data.html')
+    if 'role' in session and session['role'] == 'care_seeker':
+        if 'username' in session:
+            username = session['username']
+            user = Users.query.filter_by(username=username).first()
+            if user:
+                return render_template('careseeker_data.html', user=user)
 
 
 @home_blueprint.route('/about')

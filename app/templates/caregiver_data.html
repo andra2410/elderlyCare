@@ -1,9 +1,44 @@
 {% extends 'base.html' %}
 
-{% block title %}Caregiver Data{% endblock %}
+{% block title %}Elderly Care: {{session ['username']}}'s data{% endblock %}
 
 {% block content %}
-    <h1>Caregiver Data</h1>
-    <p>Welcome, {{ user.username }}!</p>
-    <p>Email: {{ user.email }}</p>
+    <style>
+        .data-box {
+             border: 1px solid rgb(50, 57, 25, 0.7);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-top: 40px;
+            margin-left: 780px;
+            width: 300px;
+            background-color: rgb(50, 57, 25, 0.7);
+            display: inline-grid;
+            vertical-align: top;
+            position: relative;
+            text-align: center;
+        }
+    </style>
+
+    <div class="data-box">
+        <h2>This is your profile, {{session['username']}}</h2>
+                {% if user.picture %}
+                <img src="{{ url_for('home.uploaded_file', filename=user.picture.split('/')[-1]) }}" alt="user Picture" style="width: 210px; height: 200px; border-radius: 50%; margin-left:48px">
+             {% endif %}
+                <strong style="color: aliceblue; font-size: larger;">Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;"> {{ user.username }} </span><br>
+                <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Experience:</strong> <span style="color: burlywood; font-weight: 600;"> {{ user.experience }} </span><br>
+                {% if user.references != 'N/A' %}
+                <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">References:</strong> <span style="color: burlywood; font-weight: 600; margin-top: -10px"><br>{{ user.references }} </span><br>
+                {% endif %}
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Availability:</strong> <span style="color: burlywood; font-weight: 600; margin-top: -10px;"><br>{% if user.availability == 'Full-Time' %}Full-Time{% elif user.availability == 'Part-Time' %}Part-Time{% else %}{{ user.availability }}{% endif %}</span><br>
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Languages spoken:</strong> <span style="color: burlywood; font-weight: 600; margin-top: -10px;"><br>{{ user.languages_spoken }}</span> <br>
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Background check:</strong> <span style="color: burlywood; font-weight: 600; margin-top: -10px;"><br> {{ user.background_check }} </span><br>
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Additional notes:</strong><span style="color: burlywood; font-weight: 600; margin-top: -10px;"> <br>{{ user.additional_notes }} </span><br>
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Phone number:</strong> <span style="color: burlywood; font-weight: 600;">{{ user.phone_number }} </span><br>
+        <strong style="color: aliceblue; font-size: larger; margin-top: -15px;">Email:</strong> <span style="color: burlywood; font-weight: 600;"> {{ user.email }} </span>
+        <br>
+        <br>
+        <br>
+
+    </div>
 {% endblock %}

@@ -76,13 +76,13 @@
             <li><a href="/contact">Contact</a></li>
             {% if session.get('role') != 'NULL' and session.get('username') != 'NULL' %}
                 {% if session['role'] == 'caregiver' %}
-                    <li><a href="/caregivers_profile/{{ session['username'] }}">Me</a></li>
                     <li><a href="/caregiver_dashboard">My dashboard</a></li>
                     <li><a href="/caregiver_data">My data</a></li>
+                    <li><a href="/caregivers_profile/{{ session['username'] }}">Settings</a></li>
                 {% elif session['role'] == 'care_seeker' %}
-                    <li><a href="/careseeker_profile/{{ session['username'] }}">Me</a></li>
                     <li><a href="/careseeker_dashboard">My dashboard</a></li>
-                    <li><a href="/careseeker_data">My data</a></li>
+                    <li><a href="/careseeker_data">My Profile</a></li>
+                    <li><a href="/careseeker_profile/{{ session['username'] }}">Settings</a></li>
                 {% endif %}
             {% endif %}
         </ul>
