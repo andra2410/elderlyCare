@@ -30,7 +30,7 @@
 
         .profile-box button {
             padding: 8px 16px;
-            background-color: #4CAF50;
+            background-color: #2f661c70;
             color: white;
             border: none;
             border-radius: 4px;
@@ -73,7 +73,7 @@
 </form>
 
 <form action="{{ url_for('auth.delete_profile') }}" method="post">
-    <button type="submit" class="delete-button" onclick="confirmDelete()">Delete Profile</button>
+    <button type="submit" class="delete-button" onclick="confirmDelete()" style="margin-top: 10px; color: red;">Delete Profile</button>
 </form>
         </div>
     </div>

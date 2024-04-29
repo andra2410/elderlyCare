@@ -28,7 +28,7 @@
     }
     .login-form,
     .register-message {
-        background-color: #aaa; /* Adjust as needed */
+        background-color: rgb(50, 57, 25, 0.7);
         padding: 20px;
         border-radius: 10px;
         height: 100%; /* Occupy full height */
@@ -48,8 +48,8 @@
     }
     .login-form input[type="submit"],
     .register-button {
-        background-color: #333; /* Adjust as needed */
-        color: #fff;
+        background-color: #6e8930; /* Adjust as needed */
+        color: beige;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
@@ -61,7 +61,7 @@
 <div class="row">
   <div class="column">
     <div class="login-form">
-        <h2>Member Login</h2>
+        <h2 style="color: beige;">Member Login</h2>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert alert-danger">
@@ -72,16 +72,16 @@
             {% endif %}
         {% endwith %}
         <form action="/login" method="post">
-            <label for="username">Username:</label>
+            <label style="color: beige;" for="username">Username:</label>
             <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
+            <label style="color: beige;" for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <input type="submit" value="Login">
+            <input style="color: beige;" type="submit" value="Login">
         </form>
-        <a href="/forgot-password">Forgot Password?</a>
+        <a href="/forgot-password" style="color: beige;">Forgot Password?</a>
     </div>
   </div>
-  <div class="column" style="color: azure; background-color:azure;">
+  <div class="column" style="color: beige; background-color: #e5d7a3;">
        <div class="login-form"> <!-- Apply login form styles -->
            <h2>Welcome to Our Elderly Care Platform</h2>
            <p>Our platform connects caregivers with careseekers, providing a convenient and reliable way to find the support and assistance you need.</p>
@@ -91,8 +91,8 @@
   </div>
    <div class="column">
     <div class="login-form">
-        <div class="register-message" style="margin-top: 20px;">
-            <p style="text-align: center;">If you don't have an account, register here:</p>
+        <div class="register-message" style="margin-top: 10;">
+            <p style="text-align: center; color: beige;">If you don't have an account, register here:</p>
             <a href="/register" class="register-button" style="display: block; margin: 0 auto; text-align: center;">Register</a>
         </div>
     </div>

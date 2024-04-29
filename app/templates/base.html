@@ -6,11 +6,12 @@
     <title>{% block title %}My Website{% endblock %}</title>
     <style>
          body {
-        background-color: #2d2d2d;
+        background-image: url("static/bck.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: #9cdbe0;
 }
         header {
-            background-color: #2d2d2d;
-            color: #fff;
             padding: 20px;
             text-align: center;
         }
@@ -21,17 +22,19 @@
         nav ul {
             list-style-type: none;
             margin: 0;
+            margin-top: -30px;
             padding: 0;
-            text-align: center;
+            text-align: -webkit-center;
         }
         nav ul li {
             display: inline;
             margin-right: 55px;
         }
         nav ul li a {
-            color: #fff;
-            text-decoration: none;
+            color: #f4ffc7;
+            text-decoration: underline;
             font-size: 25px;
+            font-weight: 800;
         }
         /* CSS styles for the footer */
         footer {
@@ -50,8 +53,7 @@
   text-align: center;
   text-transform: uppercase;
   text-rendering: optimizeLegibility;
-    color: #202020;
-    background-color: #2d2d2d;
+    color: #385c25;
     letter-spacing: .1em;
     text-shadow:
       -1px -1px 1px #111,
@@ -85,8 +87,8 @@
             {% block content %}{% endblock %}
         </section>
     </div>
-<footer>
+  <!--- <footer>
         Session: {{ session }}
-    </footer>
+    </footer> -->
 </body>
 </html>

@@ -11,19 +11,23 @@
         }
 
         .caregiver-box {
-            border: 1px solid #ccc;
+            border: 1px solid rgb(50, 57, 25, 0.7);
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 10px;
+            margin-top: 40px;
+            margin-left: 40px;
             width: 300px;
-            background-color: #f9f9f9;
-            display: inline-block;
+            background-color: rgb(50, 57, 25, 0.7);
+            display: inline-grid;
             vertical-align: top;
-            position: relative; /* Add position relative to enable absolute positioning */
+            position: relative;
+            text-align: center;
         }
 
         .caregiver-box strong {
-            color: #333;
+            color: cornsilk;
+            font-size: large;
         }
 
         .see-more-button {
@@ -32,7 +36,7 @@
             left: 50%;
             transform: translateX(-50%);
             padding: 5px 10px;
-            background-color: #007bff;
+            background-color:#ca72b4;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -44,20 +48,22 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            background-color: rgb(50, 57, 25, 1);
             display: none; /* Initially hidden */
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 40px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             z-index: 1000; /* Ensure the box appears on top of other content */
         }
     </style>
 
-    <h2>Caregivers</h2>
-    <div class="caregivers-container">
+    <div class="greeting" style="text-align: center; margin-top: 40px; padding: 20px; background-color: rgb(50, 57, 25, 0.9); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="font-size: 24px; margin-bottom: 10px; color: blanchedalmond;">Welcome to Your Careseeker Dashboard, {{ session['username'] }}!</h2>
+        <p style="font-size: 18px; color: blanchedalmond;">Thank you for choosing our platform to find the care you need. You have access to a diverse range of caregivers ready to assist you. Take your time exploring and finding the ideal match for your requirements.</p>
+    </div>
         {% for caregiver in caregivers %}
             <div class="caregiver-box">
-                <strong>Username:</strong> {{ caregiver.username }} <br>
+                <strong>Username:</strong> <span style="color: burlywood; font-size: large; font-weight: 600;">{{ caregiver.username }} <br>
                 <strong>Experience:</strong> {{ caregiver.experience }} <br>
                 {% if caregiver.references != 'N/A' %}
                 <strong>References:</strong> {{ caregiver.references }} <br>
