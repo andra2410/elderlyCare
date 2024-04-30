@@ -46,10 +46,8 @@ def custom_login():
                 session['username'] = username
                 print('Current user authenticated:', current_user.is_authenticated)
 
-                # Print session information
                 print('Session:', session)
 
-                # Redirect user based on role
                 if user.role == 'caregiver':
                     print('Redirecting to caregiver dashboard')
                     return redirect(url_for('auth.caregiver_dashboard'))
@@ -101,7 +99,7 @@ def register():
             phone_number=phone_number,
             role=role,
 
-            # Set caregiver-specific fields if role is caregiver
+            # caregiver-specific fields if role is caregiver
             experience=request.form.get('experience'),
             references=request.form.get('references'),
             availability=availability,
@@ -109,7 +107,7 @@ def register():
             background_check=background_check,
             additional_notes=request.form.get('additional_notes'),
 
-            # Set care seeker-specific fields if role is care seeker
+            # careseeker-specific fields
             type_of_care_needed=request.form.get('type_of_care_needed'),
             monthly_budget=request.form.get('budget'),
             availability_needed=availability_needed,
@@ -243,7 +241,7 @@ def caregivers_profile(username):
             if new_languages_spoken:
                 user.languages_spoken = new_languages_spoken
             if new_background_check:
-                user.background_check = new_background_check == 'True'  # Convert to boolean
+                user.background_check = new_background_check == 'True'
             if new_references_text:
                 user.references = new_references_text
             if new_additional_notes:
@@ -351,7 +349,7 @@ def logout():
 @auth_blueprint.route('/delete_profile', methods=['POST'])
 def delete_profile():
     if request.method == 'POST':
-        # Get the current user from the session
+        # Get the current user
         username = session.get('username')
 
         # Delete the user from the database

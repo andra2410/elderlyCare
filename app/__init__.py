@@ -10,7 +10,7 @@ login_manager = LoginManager()
 
 
 def create_app():
-    # Get the absolute path of the 'app/templates' directory
+
     templates_path = path.abspath(path.join(path.dirname(__file__), 'templates'))
 
     app_flask = Flask(__name__, template_folder=templates_path)

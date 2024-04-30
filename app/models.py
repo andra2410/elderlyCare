@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_user import UserMixin, UserManager
 from sqlalchemy_utils import ChoiceType
 
-
 db = SQLAlchemy()
 
 
@@ -42,7 +41,6 @@ class Users(db.Model, UserMixin):
 
     # def is_anonymous(self):
     #     return False
-
 
 
 usermanager = UserManager(None, None, None)
