@@ -60,6 +60,7 @@
     <div class="greeting" style="text-align: center; margin-top: 40px; padding: 20px; background-color: rgb(50, 57, 25, 0.9); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <h2 style="font-size: 24px; margin-bottom: 10px; color: blanchedalmond;">Welcome to Your Careseeker Dashboard, {{ session['username'] }}!</h2>
         <p style="font-size: 18px; color: blanchedalmond;">Thank you for choosing our platform to find the care you need. You have access to a diverse range of caregivers ready to assist you. Take your time exploring and finding the ideal match for your requirements.</p>
+        <h3><button type="submit" class="logout_button">Filter By:</button></h3>
     </div>
         {% for caregiver in caregivers %}
             <div class="caregiver-box">

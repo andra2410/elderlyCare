@@ -370,6 +370,13 @@ def delete_profile():
 def uploaded_file(filename):
     return send_from_directory(os.path.join(current_app.instance_path, 'uploads'), filename)
 
+
+@auth_blueprint.route('/filter_caregivers', methods=['GET'])
+def filter_caregivers():
+    experience = request.args.get('experience')
+    filtered_caregivers = None
+    return render_template('careseeker_dashboard.html', caregivers = filtered_caregivers)
+
 # @auth_blueprint.route('/')
 # def index():
 #     new_user = Users(
